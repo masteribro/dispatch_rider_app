@@ -27,7 +27,7 @@ class EarningsScreen extends StatelessWidget {
           ),
           actions: [
             InkWell(
-              onTap:() =>  PageRouter.gotoWidget(const MapScreen(), context),
+              onTap:() =>  PageRouter.gotoWidget( MapScreen(), context),
               child: Padding(
                 padding: EdgeInsets.only(top: 10.r, right: 10.r),
                 child: Container(

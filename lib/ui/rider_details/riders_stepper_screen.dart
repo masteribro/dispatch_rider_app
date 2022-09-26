@@ -8,6 +8,7 @@ import '../helper/const/widget/edit_form_text.dart';
 import '../helper/const/widget/text_view.dart';
 import '../helper/routes/navigation.dart';
 import '../profile/profile_screen.dart';
+import '../screens/map_folder/map_screen.dart';
 
 class RidersStepperScreen extends StatefulWidget {
   const RidersStepperScreen({Key? key}) : super(key: key);
@@ -88,7 +89,7 @@ class _RidersStepperScreenState extends State<RidersStepperScreen> {
             onStepContinue: () {
               final lastStep = currentStep == getSteps().length - 1;
               if (lastStep) {
-                PageRouter.gotoWidget(const ProfileScreen(), context);
+                PageRouter.gotoWidget(MapScreen(), context);
               } else {
                 setState(() {
                   currentStep += 1;

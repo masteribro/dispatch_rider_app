@@ -6,7 +6,7 @@ import '../../helper/const/widget/bg_body.dart';
 import '../../helper/const/widget/button_widget.dart';
 import '../../helper/const/widget/text_view.dart';
 import '../../helper/routes/navigation.dart';
-import '../../intro_screen.dart';
+import '../sign_in/sign_in.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
   const OtpVerificationScreen({Key? key}) : super(key: key);
@@ -72,6 +72,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   borderRadius: BorderRadius.circular(5),
                   fieldWidth: 70,
                   activeFillColor: Colors.white,
+                  inactiveColor: Colors.white,
                 ),
                 animationDuration: const Duration(milliseconds: 300),
                 enableActiveFill: true,
@@ -95,7 +96,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                       fontWeight: FontWeight.w500,
                       buttonText: 'Verify',
                       onPressed: () =>
-                          PageRouter.gotoWidget(const IntroScreen(), context),
+                          PageRouter.gotoWidget(const SignInScreen(), context),
                     ),
                     SizedBox(
                       height: 8.h,
