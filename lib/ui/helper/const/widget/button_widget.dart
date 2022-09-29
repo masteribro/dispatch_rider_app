@@ -8,6 +8,7 @@ class ButtonWidget extends StatelessWidget {
   final TextOverflow? textOverflow;
   final TextAlign? textAlign;
   final Color? color;
+  final Color? background;
   final double fontSize;
   final FontWeight? fontWeight;
   final FontStyle? fontStyle;
@@ -40,7 +41,7 @@ class ButtonWidget extends StatelessWidget {
     this.fontStyle = FontStyle.normal,
     this.primary,
     this.buttonStyle = false,
-    this.row = false,
+    this.row = false, this.background,
   }) : super(key: key);
 
   @override
@@ -52,7 +53,7 @@ class ButtonWidget extends StatelessWidget {
         constraints: const BoxConstraints.tightFor(width: 340, height: 50),
         child: ElevatedButton(
           style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(AppColor.primary50),
+              backgroundColor: MaterialStateProperty.all( background),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),

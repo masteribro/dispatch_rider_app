@@ -91,6 +91,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 child: Column(
                   children: [
                     ButtonWidget(
+                      background: AppColor.primary50,
                       width: 200.w,
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w500,

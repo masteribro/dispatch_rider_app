@@ -38,6 +38,7 @@ class _IntroScreenState extends State<IntroScreen> {
               Column(
                 children: [
                   ButtonWidget(
+                      background: AppColor.primary50,
                       fontSize: 16.sp,
                       buttonText: 'SIGN IN',
                       onPressed: () =>

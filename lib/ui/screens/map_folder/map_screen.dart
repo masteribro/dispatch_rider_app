@@ -1,5 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'destination.dart';
 
 
 class MapScreen extends StatefulWidget {
@@ -10,13 +15,43 @@ class MapScreen extends StatefulWidget {
   State<MapScreen> createState() => _MapScreenState();
 }
 
-class _MapScreenState extends State<MapScreen> {
+class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin{
   var size,height,width;
 
-  bool master =false;
+  bool master = true;
+   AnimationController? controller;
+  void navigateToNextPage(context) async {
+   if(master == false){
+     Timer( const Duration(seconds: 5), () => Navigator.pushReplacement(context, MaterialPageRoute(
+         builder: (context) => const Destination()
+     )) );
+   }else{
+     null;
+   }
+
+  }
+  @override
+  void initState() {
+
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    )..addListener(() {
+      setState(() {});
+    });
+    controller!.repeat(reverse: true);
+    super.initState();
+
+  }
 
   @override
+  void dispose() {
+    controller!.dispose();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
+    navigateToNextPage(context);
     size = MediaQuery.of(context).size;
     height = size.height;
     width = size.width;
@@ -58,8 +93,8 @@ class _MapScreenState extends State<MapScreen> {
               ),
             ),
           ),
-        master? Spacer():Positioned(
-            bottom:height/4.0,
+        master? SizedBox():Align(
+            heightFactor:height/4.0,
 
             child: Image.asset(
               "assets/images/boy.png",
@@ -193,10 +228,17 @@ class _MapScreenState extends State<MapScreen> {
                     width: width,
                     color: Colors.white12,
                     child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(10.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          LinearProgressIndicator(
+                            value: controller!.value,
+                            color: Colors.green,
+                            backgroundColor: Colors.greenAccent,
+
+                          ),
+                          SizedBox(height: 3.h,),
                           Text('Opportunity near by ',
                           style: TextStyle(color: Colors.greenAccent, fontSize: 20.sp, fontWeight: FontWeight.bold),
                           ),
@@ -217,6 +259,9 @@ class _MapScreenState extends State<MapScreen> {
 
       ],
     ),
-        ));
+        )
+    );
+
   }
+
 }

@@ -67,6 +67,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 height: 100.sp,
               ),
               ButtonWidget(
+                background: AppColor.primary50,
                 width: 200.w,
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w500,
