@@ -81,6 +81,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 20.sp,
                 ),
                 ButtonWidget(
+                  background: AppColor.primary50,
                   width: 200.w,
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w500,
