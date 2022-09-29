@@ -18,7 +18,7 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin{
   var size,height,width;
 
-  bool master = true;
+  bool master  = true;
    AnimationController? controller;
   void navigateToNextPage(context) async {
    if(master == false){
