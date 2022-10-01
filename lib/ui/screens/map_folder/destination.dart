@@ -7,9 +7,11 @@ import '../../helper/const/color/app_color.dart';
 import '../../helper/const/widget/button_widget.dart';
 import '../../helper/routes/navigation.dart';
 import '../../rider_details/riders_stepper_screen.dart';
+import '../Trip_Details/trip_details.dart';
 
 class Destination extends StatefulWidget {
-  const Destination({Key? key}) : super(key: key);
+
+  Destination({Key? key, }) : super(key: key);
 
   @override
   State<Destination> createState() => _DestinationState();
@@ -17,9 +19,8 @@ class Destination extends StatefulWidget {
 
 class _DestinationState extends State<Destination> {
   var size,height,width;
-
-  int arrived =1;
   int startJourney = 1;
+  int arrived =1;
   int destinationReached = 1;
   int completed = 1;
   int delivered = 1;
@@ -37,8 +38,7 @@ class _DestinationState extends State<Destination> {
                 "assets/images/mapimage.png",
                 fit: BoxFit.cover,
               ),
-              arrived==1?
-              Positioned(
+              arrived==1?Positioned(
                   top:height/60,
                   right: width/3,
                   child: Container(
@@ -59,8 +59,7 @@ class _DestinationState extends State<Destination> {
                       ),
                     ),
                   )
-              ):
-              Positioned(
+              ): Positioned(
                   top:height/60,
                   right: 71.w,
                   child: Center(
@@ -88,8 +87,6 @@ class _DestinationState extends State<Destination> {
                     ),
                   )
               ),
-
-
               arrived==1?Positioned(
                 bottom: 0,
                 width: width,
@@ -165,11 +162,6 @@ class _DestinationState extends State<Destination> {
 
                 ),
               ):
-
-
-
-
-
              destinationReached==1? Positioned(
                 bottom: 0,
                 width: width,
@@ -305,7 +297,11 @@ class _DestinationState extends State<Destination> {
                              ),
                              ElevatedButton(
 
-                               onPressed: () {},
+                               onPressed: () {
+                                 Navigator.pushReplacement(context, MaterialPageRoute(
+                                     builder: (context) => const Canceldelivery()
+                                 ));
+                               },
                                child: Icon(Icons.phone_rounded),
                                style: ElevatedButton.styleFrom(
                                  primary: Colors.red,
@@ -519,8 +515,7 @@ class _DestinationState extends State<Destination> {
 
 
                ),
-             ):
-             Positioned(
+             ):Positioned(
                bottom: 0,
                width: width,
                height: height/4,
@@ -585,7 +580,7 @@ class _DestinationState extends State<Destination> {
                              fontWeight: FontWeight.w500,
                              buttonText: 'Delivered',
                              onPressed: (){Navigator.pushReplacement(context, MaterialPageRoute(
-                                 builder: (context) => const Canceldelivery()
+                                 builder: (context) => const TripDetails()
                              ));}
                          ),
 

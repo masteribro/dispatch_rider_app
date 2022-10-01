@@ -23,7 +23,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin{
   void navigateToNextPage(context) async {
    if(master == false){
      Timer( const Duration(seconds: 5), () => Navigator.pushReplacement(context, MaterialPageRoute(
-         builder: (context) => const Destination()
+         builder: (context) => Destination()
      )) );
    }else{
      null;
@@ -79,27 +79,56 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin{
                 ),
             )
           ),
-          Positioned(
+         master? Positioned(
             bottom:height/4.0,
             right: width/2.5,
-            child: InkWell(
-              onTap: (){
+            child:   ElevatedButton(
+
+              onPressed: () {
                 setState((){
                   master=!master;
                 });
               },
+              child: Text('Go'),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.green,
+                shape: CircleBorder(
+
+                ),
+                padding: EdgeInsets.all(24),
+              ),
+
+            ),
+
+          ):Positioned(
+           bottom:height/4.0,
+           right: width/2.5,
+           child:   ElevatedButton(
+
+             onPressed: () {
+               setState((){
+                 master=!master;
+               });
+             },
+             child: Text('Stop', style: TextStyle(color: Colors.red),),
+             style: ElevatedButton.styleFrom(
+               primary: Colors.white,
+               shape: CircleBorder(
+
+               ),
+               padding: EdgeInsets.all(24),
+             ),
+
+           ),
+
+         ),
+            master? SizedBox():
+            Positioned(
+              bottom:height/4.0,
               child: Image.asset(
-                master?"assets/images/goButton.png":"assets/images/stopButton.png",
+                "assets/images/boy.png",
               ),
             ),
-          ),
-        master? SizedBox():Align(
-            heightFactor:height/4.0,
-
-            child: Image.asset(
-              "assets/images/boy.png",
-            ),
-          ),
           Positioned(
             bottom: 0,
             width: width,
