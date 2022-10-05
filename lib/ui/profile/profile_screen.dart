@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import '../helper/const/color/app_color.dart';
 import '../helper/const/widget/text_view.dart';
 import '../helper/routes/navigation.dart';
+import '../intro_screen.dart';
 import '../screens/earnings_screesn.dart';
 import '../settings/settings.dart';
 
@@ -165,7 +166,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 text: 'Settings',
                 voidCallback: () =>
                     PageRouter.gotoWidget(const SettingsScreen(), context)),
-            rowWidget(image: '', text: 'Logout'),
+            rowWidget(image: '', text: 'Logout',
+                voidCallback: () =>
+               PageRouter.gotoWidget(const IntroScreen(), context)
+            ),
           ],
         ),
       ),

@@ -82,7 +82,7 @@ class _TripDetailsState extends State<TripDetails> {
                           ],
                         ),
 
-                        height: 60.h,
+                        height: 70.h,
                         decoration: BoxDecoration(border: Border.all(color: Colors.black12,width: 1.w)),
                       )),
                       Expanded(child: Container(
@@ -95,7 +95,7 @@ class _TripDetailsState extends State<TripDetails> {
                             Text('Distance',style: TextStyle(fontSize: 17.sp, color: AppColor.spaceGrey),)
                           ],
                         ),
-                        height: 60.h,
+                        height: 70.h,
                         decoration: BoxDecoration(border: Border.all(color: Colors.black12,width: 1.w)),
                       )),
                     ],

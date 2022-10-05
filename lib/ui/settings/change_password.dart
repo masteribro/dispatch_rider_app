@@ -71,6 +71,7 @@ class ChangePasswordScreen extends StatelessWidget {
             ),
             Center(
               child: ButtonWidget(
+                background: AppColor.primary50,
                 width: 200.w,
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w400,

@@ -5,8 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../Cancel/Cancel_delivery.dart';
 import '../../helper/const/color/app_color.dart';
 import '../../helper/const/widget/button_widget.dart';
-import '../../helper/routes/navigation.dart';
-import '../../rider_details/riders_stepper_screen.dart';
 import '../Trip_Details/trip_details.dart';
 
 class Destination extends StatefulWidget {
@@ -92,6 +90,8 @@ class _DestinationState extends State<Destination> {
                 width: width,
                 height: height/3,
                 child: Container(
+                    width: width,
+                    height: height/3,
                     decoration: BoxDecoration(
                       color: Colors.white,
 
@@ -101,62 +101,64 @@ class _DestinationState extends State<Destination> {
                     Padding(
                       padding: const EdgeInsets.only(left: 16.0, top:16.0,right: 16.0,
                       ),
-                      child: Column(
-                        children: [
-                          Text('25 min',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400)
-                            ,
-                          ),
-                          SizedBox(height: 15.h,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children:  [
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Text('25 min',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400)
+                              ,
+                            ),
+                            SizedBox(height: 15.h,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children:  [
 
-                              Text('\$12.50',
-                              style: TextStyle(fontSize: 15,color: Colors.grey),
-                              ),
-                              SizedBox(width: 10.w,),
-                              Text('45km',
+                                Text('\$12.50',
                                 style: TextStyle(fontSize: 15,color: Colors.grey),
-                              ),
-                              SizedBox(width: 10.w,),
-                              Text('35',
-                                style: TextStyle(fontSize: 15,color: Colors.grey),
-                              )
-                            ],
-                          ),
-                          SizedBox(height: 30.h,),
-                          Row(
-                            children: [
-                              Icon(Icons.location_on_sharp, color: Colors.blueAccent,),
-                              SizedBox(width: 10.w,),
-                              Text('1 Ash Park, Pembroke Dock, SA72')
-                            ],
-                          ),
-                          SizedBox(height: 10.h,),
-                          Row(
-                            children: [
-                              Icon(Icons.location_on_sharp, color: Colors.red,),
-                              SizedBox(width: 10.w,),
-                              Text('54 Hollybank Rd, Southampton')
-                            ],
-                          ),
-                          SizedBox(height: 15.h,),
-                          ButtonWidget(
-                            background: AppColor.primary50,
-                            width: 200.w,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                            buttonText: 'TAP TO ACCEPT',
-                            onPressed: () {
-                             setState((){
-                              arrived++;
-                              print(arrived);
-                             });
-                            }
-                          ),
+                                ),
+                                SizedBox(width: 10.w,),
+                                Text('45km',
+                                  style: TextStyle(fontSize: 15,color: Colors.grey),
+                                ),
+                                SizedBox(width: 10.w,),
+                                Text('35',
+                                  style: TextStyle(fontSize: 15,color: Colors.grey),
+                                )
+                              ],
+                            ),
+                            SizedBox(height: 30.h,),
+                            Row(
+                              children: [
+                                Icon(Icons.location_on_sharp, color: Colors.blueAccent,),
+                                SizedBox(width: 10.w,),
+                                Text('1 Ash Park, Pembroke Dock, SA72')
+                              ],
+                            ),
+                            SizedBox(height: 10.h,),
+                            Row(
+                              children: [
+                                Icon(Icons.location_on_sharp, color: Colors.red,),
+                                SizedBox(width: 10.w,),
+                                Text('54 Hollybank Rd, Southampton')
+                              ],
+                            ),
+                            SizedBox(height: 15.h,),
+                            ButtonWidget(
+                              background: AppColor.primary50,
+                              width: 200.w,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500,
+                              buttonText: 'TAP TO ACCEPT',
+                              onPressed: () {
+                               setState((){
+                                arrived++;
+                                print(arrived);
+                               });
+                              }
+                            ),
 
 
-                        ],
+                          ],
+                        ),
                       ),
                     )
 
@@ -356,6 +358,9 @@ class _DestinationState extends State<Destination> {
                                  fontWeight: FontWeight.w500,
                                  buttonText: 'Cancel',
                                  onPressed: () {
+                                   Navigator.pushReplacement(context, MaterialPageRoute(
+                                       builder: (context) =>  Canceldelivery()
+                                   ));
                                  }
                              ),
                            ],
@@ -505,6 +510,7 @@ class _DestinationState extends State<Destination> {
                              fontSize: 14.sp,
                              fontWeight: FontWeight.w500,
                              buttonText: 'completed',
+                             color: AppColor.spaceGrey,
                              onPressed: (){}
                          ),
 

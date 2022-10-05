@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:dispatch_rider_app/ui/helper/const/color/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../profile/profile_screen.dart';
 import 'destination.dart';
 
 
@@ -19,7 +21,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin{
   var size,height,width;
 
   bool master = true;
-   AnimationController? controller;
+
   void navigateToNextPage(context) async {
    if(master == false){
      Timer( const Duration(seconds: 5), () => Navigator.pushReplacement(context, MaterialPageRoute(
@@ -30,25 +32,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin{
    }
 
   }
-  @override
-  void initState() {
 
-    controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 1),
-    )..addListener(() {
-      setState(() {});
-    });
-    controller!.repeat(reverse: true);
-    super.initState();
-
-  }
-
-  @override
-  void dispose() {
-    controller!.dispose();
-    super.dispose();
-  }
   @override
   Widget build(BuildContext context) {
     navigateToNextPage(context);
@@ -58,7 +42,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin{
     return Scaffold(
         body: SafeArea(
           child: Stack(
-      fit: StackFit.expand,
+        fit: StackFit.expand,
       children: [
           Image.asset(
             "assets/images/mapimage.png",
@@ -66,18 +50,36 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin{
           ),
           Positioned(
             top:height/60,
-              right: width/3,
-              child: Container(
+
+              child: Row(
+                children: [
+                  SizedBox(width: 120.w,),
+
+                  Container(
             height: height/15,
-              width: width/3,
-              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(15.r),
-              )),
-                child: Center(
-                  child: Text('154.75',
-                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.sp),
-                  ),
-                ),
-            )
+                  width: width/3,
+                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(15.r),
+                  )),
+                    child: Center(
+                      child: Text('154.75',
+                          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.sp),
+                      ),
+                    ),
+            ),
+                  SizedBox(width: 60.w,),
+                  InkWell(
+                    onTap: (){
+                      Navigator.pushReplacement(context, MaterialPageRoute(
+                          builder: (context) =>  ProfileScreen()
+                      ));
+                    },
+                    child: CircleAvatar(
+                      radius: 30.r,
+                      backgroundColor: AppColor.white,
+                    ),
+                  )
+                ],
+              )
           ),
          master? Positioned(
             bottom:height/4.0,
@@ -100,9 +102,10 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin{
 
             ),
 
-          ):Positioned(
+          ):
+         Positioned(
            bottom:height/4.0,
-           right: width/2.5,
+           right: 120.w,
            child:   ElevatedButton(
 
              onPressed: () {
@@ -110,7 +113,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin{
                  master=!master;
                });
              },
-             child: Text('Stop', style: TextStyle(color: Colors.red),),
+             child: Text('Stop', style:  TextStyle(color: Colors.red),),
              style: ElevatedButton.styleFrom(
                primary: Colors.white,
                shape: CircleBorder(
@@ -134,151 +137,161 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin{
             width: width,
             height: height/4.2,
             child: Container(
+                width: width,
+                height: height/4.2,
               decoration: BoxDecoration(
                 color: Colors.white,
 
               ),
               child: master?
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Row(
-                      children: [
-                        Icon(Icons.keyboard_arrow_down_rounded, size: 50.sp,),
-                        SizedBox(width: 64.w ,),
-                        Text('You are offline',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.sp),)
-                      ],
-                    ),
-                  ),
-
-
-                  Container(
-                    height: height/7.3,
-                    width: width,
-                    child: Row(
-                      children: [
-                        Container(
-                          width: width/3,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 1,
-                                color: Colors.grey
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                              Image.asset(
-                                "assets/images/acceptance.png",
-                              ),
-                              SizedBox(height: 10.h,),
-                              Text('95.0%',
-                                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.sp),),
-                              SizedBox(height: 10.h,),
-                              Text('Acceptance',
-                                style: TextStyle(fontSize: 17.sp, color: Colors.grey),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: width/3,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 1,
-                                color: Colors.grey
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                              Image.asset(
-                                "assets/images/rating.png",
-                              ),
-                              SizedBox(height: 10.h,),
-                              Text('4.5', style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.sp),),
-                              SizedBox(height: 10.h,),
-                              Text('Ratings',
-                                style: TextStyle(fontSize: 17.sp, color: Colors.grey),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: width/3,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 1,
-                                color: Colors.grey
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                              Image.asset(
-                                "assets/images/cancellation.png",
-                              ),
-                              SizedBox(height: 10.h,),
-                              Text('2.0%', style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.sp),),
-                              SizedBox(height: 10.h,),
-                              Text('Cancellation',
-                                style: TextStyle(fontSize: 17.sp, color: Colors.grey),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ):
-              Column(
-                children: [
-                Padding(
-                      padding: const EdgeInsets.all(12.0),
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding:  EdgeInsets.only(left: 12.w,right: 12.w,top: 12.w,bottom: 12.w),
                       child: Row(
                         children: [
-                          Icon(Icons.keyboard_arrow_up_rounded, size: 50.sp,),
+                          Icon(Icons.keyboard_arrow_down_rounded, size: 50.sp,),
                           SizedBox(width: 64.w ,),
-                          Text('Finding Pickups',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.sp),),
-
+                          Text('You are offline',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.sp),)
                         ],
                       ),
                     ),
-                  Container(
-                    height: height/7.3,
-                    width: width,
-                    color: Colors.white12,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+
+
+                    Container(
+                      height: height/7.3,
+                      width: width,
+                      child: Row(
                         children: [
-                          LinearProgressIndicator(
-                            value: controller!.value,
-                            color: Colors.green,
-                            backgroundColor: Colors.greenAccent,
+                          Container(
+                            width: width/3,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: 1,
+                                  color: Colors.grey
+                              ),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Image.asset(
+                                  "assets/images/acceptance.png",
+                                ),
 
+                                Text('95.0%',
+                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.sp),),
+
+                                Text('Acceptance',
+                                  style: TextStyle(fontSize: 17.sp, color: Colors.grey),
+                                ),
+                              ],
+                            ),
                           ),
-                          SizedBox(height: 3.h,),
-                          Text('Opportunity near by ',
-                          style: TextStyle(color: Colors.greenAccent, fontSize: 20.sp, fontWeight: FontWeight.bold),
+                          Container(
+                            width: width/3,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: 1.w,
+                                  color: Colors.grey
+                              ),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Image.asset(
+                                  "assets/images/rating.png",
+                                ),
+                                SizedBox(height: 10.h,),
+                                Text('4.5', style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.sp),),
+                                SizedBox(height: 8.h,),
+                                Text('Ratings',
+                                  style: TextStyle(fontSize: 17.sp, color: Colors.grey),
+                                ),
+                              ],
+                            ),
                           ),
-                          Text('More request than usual',
-                            style: TextStyle(color: Colors.grey, fontSize: 20.sp),
-                          ),
+                          Container(
+                            width: width/3,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: 1.w,
+                                  color: Colors.grey
+                              ),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Image.asset(
+                                  "assets/images/cancellation.png",
+                                ),
+
+                                Text('2.0%', style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.sp),),
+
+                                Text('Cancellation',
+                                  style: TextStyle(fontSize: 17.sp, color: Colors.grey),
+                                ),
+                              ],
+                            ),
+                          )
                         ],
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
+              ):
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                  Padding(
+                        padding:  EdgeInsets.only(left: 12.w,right: 12.w,top: 12.h,bottom: 12.h),
+                        child: Row(
+                          children: [
+                            Icon(Icons.keyboard_arrow_up_rounded, size: 50.sp,),
+                            SizedBox(width: 64.w ,),
+                            Text('Finding Pickups',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.sp),),
+
+                          ],
+                        ),
+                      ),
+                    Container(
+                      height: height/7.3,
+                      width: width,
+                      color: Colors.white12,
+                      child: Padding(
+                        padding:  EdgeInsets.only(left: 10.w,right: 10.w,top: 10.h,bottom: 10.h),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            LinearProgressIndicator(
+
+                              color: Colors.green,
+                              backgroundColor: Colors.greenAccent,
+
+                            ),
+                            SizedBox(height: 3.h,),
+                            Text('Opportunity near by ',
+                            style: TextStyle(color: Colors.greenAccent, fontSize: 20.sp, fontWeight: FontWeight.bold),
+                            ),
+                            Text('More request than usual',
+                              style: TextStyle(color: Colors.grey, fontSize: 20.sp),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               )
 
 
