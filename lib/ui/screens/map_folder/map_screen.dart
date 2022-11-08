@@ -23,8 +23,8 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin{
   bool master = true;
 
   void navigateToNextPage(context) async {
-   if(master == false){
-     Timer( const Duration(seconds: 5), () => Navigator.pushReplacement(context, MaterialPageRoute(
+   if(master == true){
+     Timer( const Duration(seconds: 20), () => Navigator.push(context, MaterialPageRoute(
          builder: (context) => Destination()
      )) );
    }else{

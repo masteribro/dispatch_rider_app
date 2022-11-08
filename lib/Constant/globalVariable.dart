@@ -1,0 +1,2 @@
+String? regEmail;
+String? regPassword;

@@ -1,8 +1,11 @@
 import 'package:dispatch_rider_app/ui/profile/user_profile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
 
+import '../../Controller/all_controller.dart';
 import '../helper/const/color/app_color.dart';
 import '../helper/const/widget/text_view.dart';
 import '../helper/routes/navigation.dart';
@@ -14,10 +17,14 @@ class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  State createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfileScreenState extends StateMVC<ProfileScreen> {
+  _ProfileScreenState() : super(Controller()) {
+    con = controller as Controller;
+  }
+  late Controller con;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -167,8 +174,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 voidCallback: () =>
                     PageRouter.gotoWidget(const SettingsScreen(), context)),
             rowWidget(image: '', text: 'Logout',
-                voidCallback: () =>
-               PageRouter.gotoWidget(const IntroScreen(), context)
+                voidCallback: con.signOut,
+
             ),
           ],
         ),
@@ -201,4 +208,5 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
       );
+
 }

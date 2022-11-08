@@ -10,13 +10,17 @@ class EditFormText extends StatelessWidget {
       this.labelText,
       this.margin,
       this.padding,
-      this.fontsize})
+      this.fontsize,
+        this.controller,
+        this.validation})
       : super(key: key);
   final bool? isSignIn;
   final String? labelText;
+  final FormFieldValidator<String>? validation;
   final double? margin;
   final double? padding;
   final double? fontsize;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +29,9 @@ class EditFormText extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(bottom: margin!),
         child: isSignIn!
-            ? TextField(
+            ? TextFormField(
+          controller: controller,
+                validator: validation,
                 textAlign: TextAlign.start,
                 cursorColor: AppColor.primary50,
                 decoration: InputDecoration(
@@ -37,7 +43,8 @@ class EditFormText extends StatelessWidget {
                     ),
                   ),
                 ))
-            : TextField(
+            : TextFormField(
+               validator: validation,
                 cursorColor: AppColor.primary50,
                 textAlign: TextAlign.start,
                 // controller: searchCtrl,
