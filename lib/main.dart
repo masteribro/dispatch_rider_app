@@ -26,10 +26,7 @@ class MyApp extends StatelessWidget {
           navigatorKey: navigatorKey,
         title: 'Run Rider',
         debugShowCheckedModeBanner: false,
-        home:
-
-
-        StreamBuilder<User?>(
+        home: StreamBuilder<User?>(
             stream: FirebaseAuth.instance.authStateChanges(),
             builder:(context, snapshot){
               if (snapshot.connectionState == ConnectionState.waiting)

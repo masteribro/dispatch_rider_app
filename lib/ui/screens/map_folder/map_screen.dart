@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../helper/const/widget/text_view.dart';
 import '../../profile/profile_screen.dart';
 import 'destination.dart';
 
@@ -35,7 +36,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin{
 
   @override
   Widget build(BuildContext context) {
-    navigateToNextPage(context);
+    // navigateToNextPage(context);
     size = MediaQuery.of(context).size;
     height = size.height;
     width = size.width;
@@ -61,8 +62,8 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin{
                   decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(15.r),
                   )),
                     child: Center(
-                      child: Text('154.75',
-                          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.sp),
+                      child: TextView(text:'154.75',
+                          fontWeight: FontWeight.bold,fontSize: 20.sp,
                       ),
                     ),
             ),
@@ -91,7 +92,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin{
                   master=!master;
                 });
               },
-              child: Text('Go'),
+              child: TextView(text: 'Go'),
               style: ElevatedButton.styleFrom(
                 primary: Colors.green,
                 shape: CircleBorder(
@@ -113,7 +114,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin{
                  master=!master;
                });
              },
-             child: Text('Stop', style:  TextStyle(color: Colors.red),),
+             child: TextView(text:'Stop', color: Colors.red,),
              style: ElevatedButton.styleFrom(
                primary: Colors.white,
                shape: CircleBorder(

@@ -1,3 +1,4 @@
+import 'package:dispatch_rider_app/ui/helper/const/widget/text_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -50,8 +51,8 @@ class _DestinationState extends State<Destination> {
                           SizedBox(width: 5.w,),
                           Icon(Icons.cancel_outlined),
                           SizedBox(width: 2.w,),
-                          Text('No Thanks',
-                            style: TextStyle(fontSize: 17.sp),
+                          TextView(text: 'No Thanks',
+                            fontSize: 17.sp,
                           ),
                         ],
                       ),
@@ -104,7 +105,7 @@ class _DestinationState extends State<Destination> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            Text('25 min',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400)
+                            TextView(text: '25 min',fontSize: 20.sp, fontWeight: FontWeight.w400
                               ,
                             ),
                             SizedBox(height: 15.h,),
@@ -112,16 +113,16 @@ class _DestinationState extends State<Destination> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children:  [
 
-                                Text('\$12.50',
-                                style: TextStyle(fontSize: 15,color: Colors.grey),
+                                TextView(text: '\$12.50',
+                                fontSize: 15,color: Colors.grey,
                                 ),
                                 SizedBox(width: 10.w,),
-                                Text('45km',
-                                  style: TextStyle(fontSize: 15,color: Colors.grey),
+                                TextView(text:'45km',
+                                  fontSize: 15,color: Colors.grey,
                                 ),
                                 SizedBox(width: 10.w,),
-                                Text('35',
-                                  style: TextStyle(fontSize: 15,color: Colors.grey),
+                                TextView(text:'35',
+                                  fontSize: 15,color: Colors.grey,
                                 )
                               ],
                             ),
@@ -130,7 +131,7 @@ class _DestinationState extends State<Destination> {
                               children: [
                                 Icon(Icons.location_on_sharp, color: Colors.blueAccent,),
                                 SizedBox(width: 10.w,),
-                                Text('1 Ash Park, Pembroke Dock, SA72')
+                                TextView(text: '1 Ash Park, Pembroke Dock, SA72')
                               ],
                             ),
                             SizedBox(height: 10.h,),
@@ -138,7 +139,7 @@ class _DestinationState extends State<Destination> {
                               children: [
                                 Icon(Icons.location_on_sharp, color: Colors.red,),
                                 SizedBox(width: 10.w,),
-                                Text('54 Hollybank Rd, Southampton')
+                                TextView(text:'54 Hollybank Rd, Southampton')
                               ],
                             ),
                             SizedBox(height: 15.h,),
@@ -183,14 +184,14 @@ class _DestinationState extends State<Destination> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text('2 min', style: TextStyle(fontSize: 20.sp,
+                              TextView(text: '2 min', fontSize: 20.sp,
                               color: Colors.black
-                              ),),
+                              ,),
 
-                              Text('0.5 mi',
-                                style: TextStyle(fontSize: 20.sp,
+                              TextView(text: '0.5 mi',
+                             fontSize: 20.sp,
                                     color: Colors.black
-                                ),
+
                               ),
                               Icon(Icons.phone_rounded)
 
@@ -201,10 +202,10 @@ class _DestinationState extends State<Destination> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                            Text('Picking up from James Smith ',
-                              style: TextStyle(fontSize: 17.sp,
+                            TextView(text:'Picking up from James Smith ',
+                              fontSize: 17.sp,
                                   color: Colors.grey
-                              ),
+
                             )
                             ],
                           ),
@@ -253,14 +254,14 @@ class _DestinationState extends State<Destination> {
                                size: 40.sp,
                              ),
                              SizedBox(width: 60.w,),
-                             Text('2 min', style: TextStyle(fontSize: 20.sp,
+                             TextView(text:'2 min', fontSize: 20.sp,
                                  color: Colors.black
-                             ),),
+                             ),
                              SizedBox(width: 60.w,),
-                             Text('0.5 mi',
-                               style: TextStyle(fontSize: 20.sp,
+                             TextView(text:'0.5 mi',
+                              fontSize: 20.sp,
                                    color: Colors.black
-                               ),
+
                              ),
 
 
@@ -271,10 +272,10 @@ class _DestinationState extends State<Destination> {
                          Row(
                            mainAxisAlignment: MainAxisAlignment.center,
                            children: [
-                             Text('Picking up James Smith',
-                               style: TextStyle(fontSize: 20.sp,
+                             TextView(text:'Picking up James Smith',
+                               fontSize: 20.sp,
                                    color: Colors.grey
-                               ),
+
                              )
                            ],
                          ),
@@ -319,20 +320,21 @@ class _DestinationState extends State<Destination> {
                          Row(
                            children: [
                              SizedBox(width: 128.w,),
-                             Text('Sender',style: TextStyle(fontSize: 10.sp)),
+                             TextView(text:'Sender',fontSize: 10.sp
+                             ),
                              SizedBox(width: 91.w,),
-                             Text('Receiver',style: TextStyle(fontSize:10.sp))
+                             TextView(text: 'Receiver',fontSize:10.sp)
                            ],
                          ),
                          Row(
 
                            children: [
                              SizedBox(width: 25.w,),
-                            Text('Sender',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17.sp)),
+                            TextView(text: 'Sender',fontWeight: FontWeight.w500,fontSize: 17.sp),
                              SizedBox(width: 45.w,),
-                            Text('David',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17.sp)),
+                            TextView(text: 'David',fontWeight: FontWeight.w500,fontSize: 17.sp),
                              SizedBox(width: 82.w,),
-                            Text('Jerry',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17.sp))
+                            TextView(text: 'Jerry',fontWeight: FontWeight.w500,fontSize: 17.sp)
                            ],
                          ),
                          SizedBox(height: 10.h,),
@@ -395,14 +397,14 @@ class _DestinationState extends State<Destination> {
                                size: 40.sp,
                              ),
                              SizedBox(width: 60.w,),
-                             Text('2 min', style: TextStyle(fontSize: 20.sp,
+                             TextView(text: '2 min', fontSize: 20.sp,
                                  color: Colors.black
-                             ),),
+                             ),
                              SizedBox(width: 60.w,),
-                             Text('0.5 mi',
-                               style: TextStyle(fontSize: 20.sp,
+                             TextView(text: '0.5 mi',
+                              fontSize: 20.sp,
                                    color: Colors.black
-                               ),
+
                              ),
 
 
@@ -413,10 +415,10 @@ class _DestinationState extends State<Destination> {
                          Row(
                            mainAxisAlignment: MainAxisAlignment.center,
                            children: [
-                             Text('David\'s pickup',
-                               style: TextStyle(fontSize: 20.sp,
+                             TextView(text:'David\'s pickup',
+                               fontSize: 20.sp,
                                    color: Colors.grey
-                               ),
+
                              )
                            ],
                          ),
@@ -468,14 +470,14 @@ class _DestinationState extends State<Destination> {
                                size: 40.sp,
                              ),
                              SizedBox(width: 60.w,),
-                             Text('2 min', style: TextStyle(fontSize: 20.sp,
+                             TextView(text:'2 min', fontSize: 20.sp,
                                  color: Colors.black
-                             ),),
+                             ),
                              SizedBox(width: 60.w,),
-                             Text('0.5 mi',
-                               style: TextStyle(fontSize: 20.sp,
+                             TextView(text:'0.5 mi',
+                               fontSize: 20.sp,
                                    color: Colors.black
-                               ),
+
                              ),
 
 
@@ -486,10 +488,10 @@ class _DestinationState extends State<Destination> {
                          Row(
                            mainAxisAlignment: MainAxisAlignment.center,
                            children: [
-                             Text('Arrived Rockdean',
-                               style: TextStyle(fontSize: 20.sp,
+                             TextView(text: 'Arrived Rockdean',
+                               fontSize: 20.sp,
                                    color: Colors.grey
-                               ),
+
                              ),
                              SizedBox(width: 40.w),
                              InkWell(
@@ -543,14 +545,14 @@ class _DestinationState extends State<Destination> {
                                size: 40.sp,
                              ),
                              SizedBox(width: 60.w,),
-                             Text('2 min', style: TextStyle(fontSize: 20.sp,
+                             TextView(text: '2 min', fontSize: 20.sp,
                                  color: Colors.black
-                             ),),
+                             ),
                              SizedBox(width: 60.w,),
-                             Text('0.5 mi',
-                               style: TextStyle(fontSize: 20.sp,
+                             TextView(text:'0.5 mi',
+                               fontSize: 20.sp,
                                    color: Colors.black
-                               ),
+
                              ),
 
 
@@ -561,10 +563,10 @@ class _DestinationState extends State<Destination> {
                          Row(
                            mainAxisAlignment: MainAxisAlignment.center,
                            children: [
-                             Text('Arrived GCL Plaza',
-                               style: TextStyle(fontSize: 20.sp,
+                             TextView(text:'Arrived GCL Plaza',
+                               fontSize: 20.sp,
                                    color: Colors.grey
-                               ),
+
                              ),
                              SizedBox(width: 40.w),
                              InkWell(

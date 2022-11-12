@@ -16,21 +16,20 @@ mixin ValidationMixin {
 
     return null;
   }
-   String? Function(String?)? validateConfirmPassword(String password) {
-    return (String? value) {
-      if (value == null) {
-        return 'Please enter a password.';
-      }
-      if (password.isEmpty) {
-        return 'Please enter a password.';
-      }
-
-      if (value != password) {
-        return 'The passwords don\'t match';
-      }
-      return null;
-    };
-  }
+  //  String? validateConfirmPassword(String password) {
+  //     if (password == null) {
+  //       return 'Please enter a password.';
+  //     }
+  //     if (password.isEmpty) {
+  //       return 'Please enter a password.';
+  //     }
+  //
+  //     if (value != password) {
+  //       return 'The passwords don\'t match';
+  //     }
+  //     return null;
+  //
+  // }
 
   String? validatePassword(String? value) {
     if (value!.trim().isEmpty) {

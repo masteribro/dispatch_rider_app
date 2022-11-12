@@ -131,7 +131,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     }on FirebaseAuthException catch(e){
       print(e);
     }
-    navigatorKey.currentState!.popUntil((route)=>route.isFirst);
+    // navigatorKey.currentState!.popUntil((route)=>route.isFirst);
 
   }
 }

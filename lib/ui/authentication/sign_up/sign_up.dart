@@ -6,6 +6,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../../Constant/globalVariable.dart';
 import '../../../Controller/all_controller.dart';
+import '../../../Model/all_model.dart';
 import '../../../main.dart';
 import '../../../utills/validation.dart';
 import '../../helper/const/color/app_color.dart';
@@ -27,6 +28,11 @@ class _SignUpScreenState extends StateMVC<SignUpScreen> with ValidationMixin {
     con = controller as Controller;
   }
   late Controller con;
+// @override
+//   void dispose() {
+//   AllModel.regFormKey;
+//     super.dispose();
+//   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,8 +86,16 @@ class _SignUpScreenState extends StateMVC<SignUpScreen> with ValidationMixin {
                     EditFormText(
                         isSignIn: true,
                         labelText: 'Confirm Password',
+                        validation: (val){
+                          if(val == null) {
+                            return 'Empty';}
+                          if(val != con.model.regPasswordController.text.trim()) {
+                            return 'Not Match';
+                          }
+                          return null;
+                        },
                         padding: 35.r,
-                        validation: validateConfirmPassword(con.model.regPasswordController.text),
+                        controller: con.model.regConfirmPasswordController,
                         margin: 15.r,
                         fontsize: 14.sp
 
@@ -101,7 +115,7 @@ class _SignUpScreenState extends StateMVC<SignUpScreen> with ValidationMixin {
                       ),
                     ),
                     SizedBox(
-                      height: 20.h,
+                      height: 40.h,
                     ),
                     ButtonWidget(
                       background: AppColor.primary50,
@@ -110,7 +124,7 @@ class _SignUpScreenState extends StateMVC<SignUpScreen> with ValidationMixin {
                       fontWeight: FontWeight.w500,
                       buttonText: 'Continue'.toUpperCase(),
                       onPressed: con.signUp,
-
+                      loading: con.model.loading,
                     )
                   ],
                 ),
