@@ -29,15 +29,45 @@ class Controller extends ControllerMVC with FlushBarMixin {
   final Repo authRepo = Repo();
  final firebase_storage.FirebaseStorage storage = firebase_storage.FirebaseStorage.instance;
   var path;
+  var path1;
+  var path2;
+  var path3;
   var fileName;
-
+  var fileName1;
+  var fileName2;
+  var fileName3;
+ bool isLoading = false;
 
   bool changeIconBool( {String? vehicleRegPath,}){
     if( vehicleRegPath != null) {
       return true;
-    }else{
-      return false;
     }
+      return false;
+
+
+  }
+  bool changeIconBool1( {String? ownershipCerti,}){
+    if( ownershipCerti != null) {
+      return true;
+    }
+      return false;
+
+
+  }
+  bool changeIconBool2( {String? riderLicense,}){
+    if( riderLicense != null) {
+      return true;
+    }
+      return false;
+
+
+  }
+  bool changeIconBool3( {String? insurancePol,}){
+    if( insurancePol != null) {
+      return true;
+    }
+      return false;
+
 
   }
 
@@ -123,25 +153,20 @@ class Controller extends ControllerMVC with FlushBarMixin {
   }
   Future<void> uploadDoc(
       String filePath,
-      String? fileName
+      String? fileName,
+      bool loading
       )async{
     File file = File(filePath);
 
-     setState(() {
-       model.vehicleRegFileN = changeIconBool(vehicleRegPath:model.vehicleRegPath);
-       model.ownershipCerti = changeIconBool();
-       model.riderLicense = changeIconBool();
-       model.insurancePol = changeIconBool();
+    setState(() {
+      isLoading;
+      print("hey${isLoading}");
      });
-
     try{
       await storage.ref('id/vechicleDoc/$fileName').putFile(file);
       showSuccessNotificationWithTime(state!.context,'success', 5);
       setState(() {
-        model.vehicleRegFileN= false;
-        model.ownershipCerti = false;
-        model.riderLicense = false;
-        model.insurancePol = false;
+        isLoading= false;
       });
     }on firebase_core.FirebaseException catch (e){
       print(e);

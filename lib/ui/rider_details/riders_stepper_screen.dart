@@ -471,15 +471,28 @@ class _RidersStepperScreenState extends StateMVC<RidersStepperScreen> with Valid
                                 return null;
                               }
                               setState((){
-                                pathLink = result.files.single.path;
-                                fileNam = result.files.single.name;
+                                con.path = result.files.single.path;
+                                con.fileName = result.files.single.name;
+                                 pathLink = con.path;
+                                 fileNam =con.fileName;
+                                con.model.vehicleRegPath = con.path;
+                                con.model.ownerCertPath = con.path;
+                                con.model.insurPolPath = con.path;
+                                con.model.driverLicPath = con.path;
+                                con.isLoading= con.changeIconBool(vehicleRegPath: con.model.vehicleRegPath);
+                                con.isLoading = con.changeIconBool1(ownershipCerti: con.model.ownerCertPath);
+                                con.isLoading = con.changeIconBool2(riderLicense: con.model.driverLicPath);
+                                con.isLoading = con.changeIconBool3(insurancePol: con.model.insurPolPath);
+                                print(con.isLoading);
+
                               });
+                              print("vehicle${con.model.vehicleRegPath}");
+                              print("ownercert${con.model.ownerCertPath}");
+                              print("insurpolpath${con.model.insurPolPath}");
+                              print("driverlicpath${con.model.driverLicPath}");
+                              print("how are you ${con.changeIconBool(vehicleRegPath: pathLink)}");
+                              con.uploadDoc(pathLink!, fileNam, iconLoading).then((value) => print('done'));
 
-                              debugPrint(pathLink);
-                              debugPrint(fileNam);
-
-                              print("how are you ${con.changeIconBool(vehicleRegPath:con.model.vehicleRegPath)}");
-                              con.uploadDoc(pathLink!, fileNam).then((value) => print('done'));
                             },
                             child: TextView(
                               text: text!,
@@ -489,7 +502,7 @@ class _RidersStepperScreenState extends StateMVC<RidersStepperScreen> with Valid
                             ),
                           ),
                             SizedBox(width: 50.w,),
-                          iconLoading ? SpinKitDoubleBounce(
+                          con.isLoading ? SpinKitDoubleBounce(
                             color: AppColor.primary50,
                             size: 40.0.h,
                           ): SizedBox.shrink(),
