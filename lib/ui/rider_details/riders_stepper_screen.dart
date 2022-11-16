@@ -1,12 +1,20 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dispatch_rider_app/utills/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
+import '../../Controller/all_controller.dart';
 import '../helper/const/color/app_color.dart';
 import '../helper/const/widget/button_widget.dart';
 import '../helper/const/widget/custom_appbar.dart';
 import '../helper/const/widget/edit_form_text.dart';
 import '../helper/const/widget/text_view.dart';
 import '../helper/routes/navigation.dart';
+import 'package:file_picker/file_picker.dart';
 import '../profile/profile_screen.dart';
 import '../screens/map_folder/map_screen.dart';
 
@@ -14,10 +22,14 @@ class RidersStepperScreen extends StatefulWidget {
   const RidersStepperScreen({Key? key}) : super(key: key);
 
   @override
-  State<RidersStepperScreen> createState() => _RidersStepperScreenState();
+  State createState() => _RidersStepperScreenState();
 }
 
-class _RidersStepperScreenState extends State<RidersStepperScreen> {
+class _RidersStepperScreenState extends StateMVC<RidersStepperScreen> with ValidationMixin {
+  _RidersStepperScreenState() : super(Controller()) {
+    con = controller as Controller;
+  }
+  late Controller con;
   int currentStep = 0;
   int groupValue = -1;
 
@@ -47,7 +59,8 @@ class _RidersStepperScreenState extends State<RidersStepperScreen> {
       ],
     );
   }
-
+  String? fileName;
+  String? path;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,7 +129,42 @@ class _RidersStepperScreenState extends State<RidersStepperScreen> {
                       ),
                     ButtonWidget(
                       buttonText: 'Next',
-                      onPressed: details.onStepContinue,
+                      onPressed: (){
+                        details.onStepContinue!();
+                        final fName = con.model.fName.text;
+                        final lName=con.model.lName.text;
+                        final email=con.model.email.text;
+                        final homeAddress=con.model.homeAddress.text;
+                        final vehicleType= con.model.vehicleController.text;
+                        final brand = con.model.brandController.text;
+                        final model = con.model.modelController.text;
+                        final year = con.model.yearController.text;
+                        final plateNumber = con.model.plateNumberController.text;
+                        final color = con.model.colorController.text;
+                        final bankName = con.model.bankNameController.text ;
+                        final accountHolderName = con.model.accountNameController.text;
+                        final accountNumber = con.model.accountNumberController.text;
+                        final bvn = con.model.bvnController.text;
+                        if(currentStep >= 4){
+                          print(currentStep);
+                          con.createUser(
+                              fName:fName,
+                              lName:lName,
+                              email:email,
+                              homeAddress:homeAddress,
+                              vehicleType: vehicleType,
+                              brand: brand,
+                              model: model,
+                              year: year,
+                              plateNumber: plateNumber,
+                              color: color,
+                              bankName: bankName,
+                              accountHolderName: accountHolderName,
+                              accountNumber: accountNumber,
+                              bvn: bvn
+                          );
+                        }
+                        },
                       width: 65.w,
                       height: 25.h,
                       fontSize: 14.sp,
@@ -151,22 +199,26 @@ class _RidersStepperScreenState extends State<RidersStepperScreen> {
                     labelText: 'First name',
                     fontsize: 16.sp,
                     padding: 0.r,
+                    controller: con.model.fName,
                     margin: 20.r),
                 EditFormText(
                     isSignIn: true,
                     labelText: 'Last name',
+                    controller: con.model.lName,
                     padding: 0.r,
                     margin: 20.r,
                     fontsize: 16.sp),
                 EditFormText(
                     isSignIn: true,
                     labelText: 'E-Mail',
+                    controller: con.model.email,
                     padding: 0.r,
                     margin: 20.r,
                     fontsize: 16.sp),
                 EditFormText(
                     isSignIn: true,
                     labelText: 'Home Address',
+                    controller: con.model.homeAddress,
                     padding: 0.r,
                     margin: 20.r,
                     fontsize: 16.sp),
@@ -226,15 +278,37 @@ class _RidersStepperScreenState extends State<RidersStepperScreen> {
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
-                  height: 75.h,
+                  height: 60.h,
                 ),
-                SvgPicture.asset('assets/svg/download_icon.svg'),
+                path == null  ? SvgPicture.asset('assets/svg/download_icon.svg') :Image.file(File(path!), scale: 8,),
                 SizedBox(
                   height: 20.h,
                 ),
                 ButtonWidget(
                   buttonText: 'Select document',
-                  onPressed: () {},
+                  loading: con.model.loading,
+                  onPressed: () async{
+
+                    final result = await FilePicker.platform.pickFiles(
+                      allowMultiple: false,
+                      type: FileType.custom,
+                      allowedExtensions: ['png','jpeg', 'jpg', 'pdf']
+                    );
+                    if (result == null){
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: TextView(text: 'No file selected.')));
+                      return null;
+                    }
+
+                    setState((){
+                      path = result.files.single.path;
+                      fileName = result.files.single.name;
+                    });
+
+                    debugPrint(path);
+                    debugPrint(fileName);
+                    con.uploadFile(path!, fileName).then((value) => print('done'));
+
+                  },
                   width: 126.w,
                   height: 35.5.h,
                   fontSize: 12.sp,
@@ -248,36 +322,42 @@ class _RidersStepperScreenState extends State<RidersStepperScreen> {
             content: Column(
               children: [
                 EditFormText(
+                    controller: con.model.vehicleController,
                     isSignIn: true,
                     labelText: 'Vehicle Type',
                     fontsize: 16.sp,
                     padding: 0.r,
                     margin: 20.r),
                 EditFormText(
+                    controller: con.model.brandController,
                     isSignIn: true,
                     labelText: 'Brand (Auto Suggestion)',
                     fontsize: 16.sp,
                     padding: 0.r,
                     margin: 20.r),
                 EditFormText(
+                    controller: con.model.modelController,
                     isSignIn: true,
                     labelText: 'Model (Auto suggestion)',
                     fontsize: 16.sp,
                     padding: 0.r,
                     margin: 20.r),
                 EditFormText(
+                    controller: con.model.yearController,
                     isSignIn: true,
                     labelText: 'Year (optional)',
                     fontsize: 16.sp,
                     padding: 0.r,
                     margin: 20.r),
                 EditFormText(
+                    controller: con.model.plateNumberController,
                     isSignIn: true,
                     labelText: 'Plate number*',
                     fontsize: 16.sp,
                     padding: 0.r,
                     margin: 20.r),
                 EditFormText(
+                    controller: con.model.colorController,
                     isSignIn: true,
                     labelText: 'Color',
                     fontsize: 16.sp,
@@ -300,10 +380,10 @@ class _RidersStepperScreenState extends State<RidersStepperScreen> {
                 SizedBox(
                   height: 30.h,
                 ),
-                rowItem(text: 'Vehicle registration'),
-                rowItem(text: 'Ownership certicate'),
-                rowItem(text: 'Insurance policy'),
-                rowItem(text: 'Driver/ rider license'),
+                rowItem(text: 'Vehicle registration', pathLink: con.model.vehicleRegPath, fileNam: con.model.vehicleRegFileNam, iconLoading: con.model.vehicleRegFileN, idPassed: 0),
+                rowItem(text:'Ownership certificate', pathLink: con.model.ownerCertPath, fileNam: con.model.ownerCertFileNam, iconLoading: con.model.ownershipCerti, idPassed: 1),
+                rowItem(text:'Insurance policy', pathLink: con.model.insurPolPath, fileNam: con.model.insurPolFileNam, iconLoading: con.model.insurancePol, idPassed: 2),
+                rowItem(text:'Driver/ rider license', pathLink: con.model.driverLicPath, fileNam: con.model.driverLicFileNam, iconLoading: con.model.riderLicense, idPassed: 3),
               ],
             )),
         Step(
@@ -312,24 +392,28 @@ class _RidersStepperScreenState extends State<RidersStepperScreen> {
             content: Column(
               children: [
                 EditFormText(
+                    controller: con.model.bankNameController,
                     isSignIn: true,
                     labelText: 'Bank Name',
                     fontsize: 16.sp,
                     padding: 0.r,
                     margin: 20.r),
                 EditFormText(
+                    controller: con.model.accountNameController,
                     isSignIn: true,
                     labelText: 'Account Holder Name',
                     fontsize: 16.sp,
                     padding: 0.r,
                     margin: 20.r),
                 EditFormText(
+                    controller: con.model.accountNumberController,
                     isSignIn: true,
                     labelText: 'Account Number',
                     fontsize: 16.sp,
                     padding: 0.r,
                     margin: 20.r),
                 EditFormText(
+                    controller: con.model.bvnController,
                     isSignIn: true,
                     labelText: 'BVN',
                     fontsize: 16.sp,
@@ -358,7 +442,7 @@ class _RidersStepperScreenState extends State<RidersStepperScreen> {
             )),
       ];
 
-  rowItem({String? text}) => Container(
+  rowItem({String? text, String? pathLink, String? fileNam, required bool iconLoading, int? idPassed}) => Container(
         margin: EdgeInsets.only(bottom: 25.r),
         child: Row(
           children: [
@@ -370,11 +454,62 @@ class _RidersStepperScreenState extends State<RidersStepperScreen> {
                     borderRadius: BorderRadius.all(Radius.circular(5.r))),
                 child: Padding(
                   padding: EdgeInsets.all(21.r),
-                  child: TextView(
-                    text: text!,
-                    fontSize: 15.sp,
-                    color: AppColor.black,
-                    fontWeight: FontWeight.w400,
+                  child: Row(
+                    children: [
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          InkWell(
+                            onTap: () async{
+                              final result = await FilePicker.platform.pickFiles(
+                                  allowMultiple: false,
+                                  type: FileType.custom,
+                                  allowedExtensions: ['png','jpg','jpeg', 'pdf']
+                              );
+                              if (result == null){
+                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: TextView(text: 'No file selected.')));
+                                return null;
+                              }
+                              setState((){
+                                con.path = result.files.single.path;
+                                con.fileName = result.files.single.name;
+                                 // pathLink = con.path;
+                                 // fileNam =con.fileName;
+                                // Set the current ID to the ID of this widget
+                                con.id = idPassed ?? 0;
+
+                                // Set the current path to this guy
+                                con.setPath(con.path);
+
+                                // Change the loading variable based on who is currently selected
+                                con.isLoading = con.changeIconBool(path: con.getPath());
+                                print(con.isLoading);
+
+                              });
+                              // print("vehicle${con.model.vehicleRegPath}");
+                              // print("ownercert${con.model.ownerCertPath}");
+                              // print("insurpolpath${con.model.insurPolPath}");
+                              // print("driverlicpath${con.model.driverLicPath}");
+                              // print("how are you ${con.changeIconBool(vehicleRegPath: pathLink)}");
+                              con.uploadDoc(pathLink!, fileNam, iconLoading).then((value) => print('done'));
+
+                            },
+                            child: TextView(
+                              text: text!,
+                              fontSize: 15.sp,
+                              color: AppColor.black,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                            SizedBox(width: 50.w,),
+
+                          con.isLoading && (con.id == idPassed) ? SpinKitDoubleBounce(
+                            color: AppColor.primary50,
+                            size: 40.0.h,
+                          ): SizedBox.shrink(),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -386,4 +521,7 @@ class _RidersStepperScreenState extends State<RidersStepperScreen> {
           ],
         ),
       );
+
+
+
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'authentication/sign_in/sign_in.dart';
@@ -37,12 +38,14 @@ class _IntroScreenState extends State<IntroScreen> {
               SizedBox(height: 120.h),
               Column(
                 children: [
+
                   ButtonWidget(
                       background: AppColor.primary50,
                       fontSize: 16.sp,
                       buttonText: 'SIGN IN',
                       onPressed: () =>
                           PageRouter.gotoWidget(const SignInScreen(), context)),
+
                   SizedBox(
                     height: 8.h,
                   ),

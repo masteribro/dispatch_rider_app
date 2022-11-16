@@ -1,3 +1,4 @@
+import 'package:dispatch_rider_app/ui/helper/const/widget/text_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,11 +6,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../Cancel/Cancel_delivery.dart';
 import '../../helper/const/color/app_color.dart';
 import '../../helper/const/widget/button_widget.dart';
-import '../../helper/routes/navigation.dart';
-import '../../rider_details/riders_stepper_screen.dart';
+import '../Trip_Details/trip_details.dart';
 
 class Destination extends StatefulWidget {
-  const Destination({Key? key}) : super(key: key);
+
+  Destination({Key? key, }) : super(key: key);
 
   @override
   State<Destination> createState() => _DestinationState();
@@ -17,9 +18,8 @@ class Destination extends StatefulWidget {
 
 class _DestinationState extends State<Destination> {
   var size,height,width;
-
-  int arrived =1;
   int startJourney = 1;
+  int arrived =1;
   int destinationReached = 1;
   int completed = 1;
   int delivered = 1;
@@ -37,8 +37,7 @@ class _DestinationState extends State<Destination> {
                 "assets/images/mapimage.png",
                 fit: BoxFit.cover,
               ),
-              arrived==1?
-              Positioned(
+              arrived==1?Positioned(
                   top:height/60,
                   right: width/3,
                   child: Container(
@@ -52,15 +51,14 @@ class _DestinationState extends State<Destination> {
                           SizedBox(width: 5.w,),
                           Icon(Icons.cancel_outlined),
                           SizedBox(width: 2.w,),
-                          Text('No Thanks',
-                            style: TextStyle(fontSize: 17.sp),
+                          TextView(text: 'No Thanks',
+                            fontSize: 17.sp,
                           ),
                         ],
                       ),
                     ),
                   )
-              ):
-              Positioned(
+              ): Positioned(
                   top:height/60,
                   right: 71.w,
                   child: Center(
@@ -88,13 +86,13 @@ class _DestinationState extends State<Destination> {
                     ),
                   )
               ),
-
-
               arrived==1?Positioned(
                 bottom: 0,
                 width: width,
                 height: height/3,
                 child: Container(
+                    width: width,
+                    height: height/3,
                     decoration: BoxDecoration(
                       color: Colors.white,
 
@@ -104,72 +102,69 @@ class _DestinationState extends State<Destination> {
                     Padding(
                       padding: const EdgeInsets.only(left: 16.0, top:16.0,right: 16.0,
                       ),
-                      child: Column(
-                        children: [
-                          Text('25 min',style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400)
-                            ,
-                          ),
-                          SizedBox(height: 15.h,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children:  [
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            TextView(text: '25 min',fontSize: 20.sp, fontWeight: FontWeight.w400
+                              ,
+                            ),
+                            SizedBox(height: 15.h,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children:  [
 
-                              Text('\$12.50',
-                              style: TextStyle(fontSize: 15,color: Colors.grey),
-                              ),
-                              SizedBox(width: 10.w,),
-                              Text('45km',
-                                style: TextStyle(fontSize: 15,color: Colors.grey),
-                              ),
-                              SizedBox(width: 10.w,),
-                              Text('35',
-                                style: TextStyle(fontSize: 15,color: Colors.grey),
-                              )
-                            ],
-                          ),
-                          SizedBox(height: 30.h,),
-                          Row(
-                            children: [
-                              Icon(Icons.location_on_sharp, color: Colors.blueAccent,),
-                              SizedBox(width: 10.w,),
-                              Text('1 Ash Park, Pembroke Dock, SA72')
-                            ],
-                          ),
-                          SizedBox(height: 10.h,),
-                          Row(
-                            children: [
-                              Icon(Icons.location_on_sharp, color: Colors.red,),
-                              SizedBox(width: 10.w,),
-                              Text('54 Hollybank Rd, Southampton')
-                            ],
-                          ),
-                          SizedBox(height: 15.h,),
-                          ButtonWidget(
-                            background: AppColor.primary50,
-                            width: 200.w,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                            buttonText: 'TAP TO ACCEPT',
-                            onPressed: () {
-                             setState((){
-                              arrived++;
-                              print(arrived);
-                             });
-                            }
-                          ),
+                                TextView(text: '\$12.50',
+                                fontSize: 15,color: Colors.grey,
+                                ),
+                                SizedBox(width: 10.w,),
+                                TextView(text:'45km',
+                                  fontSize: 15,color: Colors.grey,
+                                ),
+                                SizedBox(width: 10.w,),
+                                TextView(text:'35',
+                                  fontSize: 15,color: Colors.grey,
+                                )
+                              ],
+                            ),
+                            SizedBox(height: 30.h,),
+                            Row(
+                              children: [
+                                Icon(Icons.location_on_sharp, color: Colors.blueAccent,),
+                                SizedBox(width: 10.w,),
+                                TextView(text: '1 Ash Park, Pembroke Dock, SA72')
+                              ],
+                            ),
+                            SizedBox(height: 10.h,),
+                            Row(
+                              children: [
+                                Icon(Icons.location_on_sharp, color: Colors.red,),
+                                SizedBox(width: 10.w,),
+                                TextView(text:'54 Hollybank Rd, Southampton')
+                              ],
+                            ),
+                            SizedBox(height: 15.h,),
+                            ButtonWidget(
+                              background: AppColor.primary50,
+                              width: 200.w,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500,
+                              buttonText: 'TAP TO ACCEPT',
+                              onPressed: () {
+                               setState((){
+                                arrived++;
+                                print(arrived);
+                               });
+                              }
+                            ),
 
 
-                        ],
+                          ],
+                        ),
                       ),
                     )
 
                 ),
               ):
-
-
-
-
-
              destinationReached==1? Positioned(
                 bottom: 0,
                 width: width,
@@ -189,14 +184,14 @@ class _DestinationState extends State<Destination> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text('2 min', style: TextStyle(fontSize: 20.sp,
+                              TextView(text: '2 min', fontSize: 20.sp,
                               color: Colors.black
-                              ),),
+                              ,),
 
-                              Text('0.5 mi',
-                                style: TextStyle(fontSize: 20.sp,
+                              TextView(text: '0.5 mi',
+                             fontSize: 20.sp,
                                     color: Colors.black
-                                ),
+
                               ),
                               Icon(Icons.phone_rounded)
 
@@ -207,10 +202,10 @@ class _DestinationState extends State<Destination> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                            Text('Picking up from James Smith ',
-                              style: TextStyle(fontSize: 17.sp,
+                            TextView(text:'Picking up from James Smith ',
+                              fontSize: 17.sp,
                                   color: Colors.grey
-                              ),
+
                             )
                             ],
                           ),
@@ -259,14 +254,14 @@ class _DestinationState extends State<Destination> {
                                size: 40.sp,
                              ),
                              SizedBox(width: 60.w,),
-                             Text('2 min', style: TextStyle(fontSize: 20.sp,
+                             TextView(text:'2 min', fontSize: 20.sp,
                                  color: Colors.black
-                             ),),
+                             ),
                              SizedBox(width: 60.w,),
-                             Text('0.5 mi',
-                               style: TextStyle(fontSize: 20.sp,
+                             TextView(text:'0.5 mi',
+                              fontSize: 20.sp,
                                    color: Colors.black
-                               ),
+
                              ),
 
 
@@ -277,10 +272,10 @@ class _DestinationState extends State<Destination> {
                          Row(
                            mainAxisAlignment: MainAxisAlignment.center,
                            children: [
-                             Text('Picking up James Smith',
-                               style: TextStyle(fontSize: 20.sp,
+                             TextView(text:'Picking up James Smith',
+                               fontSize: 20.sp,
                                    color: Colors.grey
-                               ),
+
                              )
                            ],
                          ),
@@ -305,7 +300,11 @@ class _DestinationState extends State<Destination> {
                              ),
                              ElevatedButton(
 
-                               onPressed: () {},
+                               onPressed: () {
+                                 Navigator.pushReplacement(context, MaterialPageRoute(
+                                     builder: (context) => const Canceldelivery()
+                                 ));
+                               },
                                child: Icon(Icons.phone_rounded),
                                style: ElevatedButton.styleFrom(
                                  primary: Colors.red,
@@ -321,20 +320,21 @@ class _DestinationState extends State<Destination> {
                          Row(
                            children: [
                              SizedBox(width: 128.w,),
-                             Text('Sender',style: TextStyle(fontSize: 10.sp)),
+                             TextView(text:'Sender',fontSize: 10.sp
+                             ),
                              SizedBox(width: 91.w,),
-                             Text('Receiver',style: TextStyle(fontSize:10.sp))
+                             TextView(text: 'Receiver',fontSize:10.sp)
                            ],
                          ),
                          Row(
 
                            children: [
                              SizedBox(width: 25.w,),
-                            Text('Sender',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17.sp)),
+                            TextView(text: 'Sender',fontWeight: FontWeight.w500,fontSize: 17.sp),
                              SizedBox(width: 45.w,),
-                            Text('David',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17.sp)),
+                            TextView(text: 'David',fontWeight: FontWeight.w500,fontSize: 17.sp),
                              SizedBox(width: 82.w,),
-                            Text('Jerry',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17.sp))
+                            TextView(text: 'Jerry',fontWeight: FontWeight.w500,fontSize: 17.sp)
                            ],
                          ),
                          SizedBox(height: 10.h,),
@@ -360,6 +360,9 @@ class _DestinationState extends State<Destination> {
                                  fontWeight: FontWeight.w500,
                                  buttonText: 'Cancel',
                                  onPressed: () {
+                                   Navigator.pushReplacement(context, MaterialPageRoute(
+                                       builder: (context) =>  Canceldelivery()
+                                   ));
                                  }
                              ),
                            ],
@@ -394,14 +397,14 @@ class _DestinationState extends State<Destination> {
                                size: 40.sp,
                              ),
                              SizedBox(width: 60.w,),
-                             Text('2 min', style: TextStyle(fontSize: 20.sp,
+                             TextView(text: '2 min', fontSize: 20.sp,
                                  color: Colors.black
-                             ),),
+                             ),
                              SizedBox(width: 60.w,),
-                             Text('0.5 mi',
-                               style: TextStyle(fontSize: 20.sp,
+                             TextView(text: '0.5 mi',
+                              fontSize: 20.sp,
                                    color: Colors.black
-                               ),
+
                              ),
 
 
@@ -412,10 +415,10 @@ class _DestinationState extends State<Destination> {
                          Row(
                            mainAxisAlignment: MainAxisAlignment.center,
                            children: [
-                             Text('David\'s pickup',
-                               style: TextStyle(fontSize: 20.sp,
+                             TextView(text:'David\'s pickup',
+                               fontSize: 20.sp,
                                    color: Colors.grey
-                               ),
+
                              )
                            ],
                          ),
@@ -467,14 +470,14 @@ class _DestinationState extends State<Destination> {
                                size: 40.sp,
                              ),
                              SizedBox(width: 60.w,),
-                             Text('2 min', style: TextStyle(fontSize: 20.sp,
+                             TextView(text:'2 min', fontSize: 20.sp,
                                  color: Colors.black
-                             ),),
+                             ),
                              SizedBox(width: 60.w,),
-                             Text('0.5 mi',
-                               style: TextStyle(fontSize: 20.sp,
+                             TextView(text:'0.5 mi',
+                               fontSize: 20.sp,
                                    color: Colors.black
-                               ),
+
                              ),
 
 
@@ -485,10 +488,10 @@ class _DestinationState extends State<Destination> {
                          Row(
                            mainAxisAlignment: MainAxisAlignment.center,
                            children: [
-                             Text('Arrived Rockdean',
-                               style: TextStyle(fontSize: 20.sp,
+                             TextView(text: 'Arrived Rockdean',
+                               fontSize: 20.sp,
                                    color: Colors.grey
-                               ),
+
                              ),
                              SizedBox(width: 40.w),
                              InkWell(
@@ -509,6 +512,7 @@ class _DestinationState extends State<Destination> {
                              fontSize: 14.sp,
                              fontWeight: FontWeight.w500,
                              buttonText: 'completed',
+                             color: AppColor.spaceGrey,
                              onPressed: (){}
                          ),
 
@@ -519,8 +523,7 @@ class _DestinationState extends State<Destination> {
 
 
                ),
-             ):
-             Positioned(
+             ):Positioned(
                bottom: 0,
                width: width,
                height: height/4,
@@ -542,14 +545,14 @@ class _DestinationState extends State<Destination> {
                                size: 40.sp,
                              ),
                              SizedBox(width: 60.w,),
-                             Text('2 min', style: TextStyle(fontSize: 20.sp,
+                             TextView(text: '2 min', fontSize: 20.sp,
                                  color: Colors.black
-                             ),),
+                             ),
                              SizedBox(width: 60.w,),
-                             Text('0.5 mi',
-                               style: TextStyle(fontSize: 20.sp,
+                             TextView(text:'0.5 mi',
+                               fontSize: 20.sp,
                                    color: Colors.black
-                               ),
+
                              ),
 
 
@@ -560,10 +563,10 @@ class _DestinationState extends State<Destination> {
                          Row(
                            mainAxisAlignment: MainAxisAlignment.center,
                            children: [
-                             Text('Arrived GCL Plaza',
-                               style: TextStyle(fontSize: 20.sp,
+                             TextView(text:'Arrived GCL Plaza',
+                               fontSize: 20.sp,
                                    color: Colors.grey
-                               ),
+
                              ),
                              SizedBox(width: 40.w),
                              InkWell(
@@ -585,7 +588,7 @@ class _DestinationState extends State<Destination> {
                              fontWeight: FontWeight.w500,
                              buttonText: 'Delivered',
                              onPressed: (){Navigator.pushReplacement(context, MaterialPageRoute(
-                                 builder: (context) => const Canceldelivery()
+                                 builder: (context) => const TripDetails()
                              ));}
                          ),
 

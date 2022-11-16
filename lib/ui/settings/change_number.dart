@@ -88,6 +88,7 @@ class ChangeNumberScreen extends StatelessWidget {
             ),
             Center(
               child: ButtonWidget(
+                background: AppColor.primary50,
                 width: 200.w,
                 fontSize: 15.sp,
                 fontWeight: FontWeight.w500,

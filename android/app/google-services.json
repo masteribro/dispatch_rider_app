@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "638905341460",
+    "project_id": "run-app-f27c1",
+    "storage_bucket": "run-app-f27c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:638905341460:android:67acf24d78a35a3e93f901",
+        "android_client_info": {
+          "package_name": "com.example.dispatch_rider_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "638905341460-q43n19n4e25pacs45to6u9v2d7ohitn3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3IVfsyUAwILz4KV57AZUGk1TJ68w3Je4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "638905341460-q43n19n4e25pacs45to6u9v2d7ohitn3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
