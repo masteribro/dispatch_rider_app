@@ -36,39 +36,38 @@ class Controller extends ControllerMVC with FlushBarMixin {
   var fileName1;
   var fileName2;
   var fileName3;
- bool isLoading = false;
+  bool isLoading = false;
+  int id = 0;
 
-  bool changeIconBool( {String? vehicleRegPath,}){
-    if( vehicleRegPath != null) {
+  bool changeIconBool( {String? path}){
+    if( path != null) {
       return true;
     }
       return false;
-
-
   }
-  bool changeIconBool1( {String? ownershipCerti,}){
-    if( ownershipCerti != null) {
-      return true;
+
+  void setPath(String path){
+    switch (id){
+      case 0: model.vehicleRegPath = path;
+        break;
+      case 1: model.ownerCertPath = path;
+        break;
+      case 2: model.insurPolPath = path;
+        break;
+      case 3: model.driverLicPath = path;
+        break;
+      default: {}
     }
-      return false;
-
-
   }
-  bool changeIconBool2( {String? riderLicense,}){
-    if( riderLicense != null) {
-      return true;
+
+  String? getPath(){
+    switch (id){
+      case 0: return model.vehicleRegPath;
+      case 1: return model.ownerCertPath;
+      case 2: return model.insurPolPath;
+      case 3: return model.driverLicPath;
+      default: {}
     }
-      return false;
-
-
-  }
-  bool changeIconBool3( {String? insurancePol,}){
-    if( insurancePol != null) {
-      return true;
-    }
-      return false;
-
-
   }
 
   Future signIn()async {
@@ -109,7 +108,7 @@ class Controller extends ControllerMVC with FlushBarMixin {
           email:  model.regEmailController.text.trim(),
           password: model.regPasswordController.text.trim());
       if (credentials.user?.uid != null){
-        PageRouter.gotoWidget(RidersStepperScreen(), state!.context);
+        Navigator.pushReplacement(state!.context, MaterialPageRoute(builder: (BuildContext context) => RidersStepperScreen()));
         showSuccessNotificationWithTime(state!.context,'success', 5);
       }else{
         showErrorNotification(state!.context, 'An error has occur');

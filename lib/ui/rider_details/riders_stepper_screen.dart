@@ -380,10 +380,10 @@ class _RidersStepperScreenState extends StateMVC<RidersStepperScreen> with Valid
                 SizedBox(
                   height: 30.h,
                 ),
-                rowItem(text: 'Vehicle registration', pathLink: con.model.vehicleRegPath, fileNam: con.model.vehicleRegFileNam, iconLoading: con.model.vehicleRegFileN),
-                rowItem(text:'Ownership certificate', pathLink: con.model.ownerCertPath, fileNam: con.model.ownerCertFileNam, iconLoading: con.model.ownershipCerti),
-                rowItem(text:'Insurance policy', pathLink: con.model.insurPolPath, fileNam: con.model.insurPolFileNam, iconLoading: con.model.insurancePol ),
-                rowItem(text:'Driver/ rider license', pathLink: con.model.driverLicPath, fileNam: con.model.driverLicFileNam, iconLoading: con.model.riderLicense),
+                rowItem(text: 'Vehicle registration', pathLink: con.model.vehicleRegPath, fileNam: con.model.vehicleRegFileNam, iconLoading: con.model.vehicleRegFileN, idPassed: 0),
+                rowItem(text:'Ownership certificate', pathLink: con.model.ownerCertPath, fileNam: con.model.ownerCertFileNam, iconLoading: con.model.ownershipCerti, idPassed: 1),
+                rowItem(text:'Insurance policy', pathLink: con.model.insurPolPath, fileNam: con.model.insurPolFileNam, iconLoading: con.model.insurancePol, idPassed: 2),
+                rowItem(text:'Driver/ rider license', pathLink: con.model.driverLicPath, fileNam: con.model.driverLicFileNam, iconLoading: con.model.riderLicense, idPassed: 3),
               ],
             )),
         Step(
@@ -442,7 +442,7 @@ class _RidersStepperScreenState extends StateMVC<RidersStepperScreen> with Valid
             )),
       ];
 
-  rowItem({String? text, String? pathLink, String? fileNam, required bool iconLoading}) => Container(
+  rowItem({String? text, String? pathLink, String? fileNam, required bool iconLoading, int? idPassed}) => Container(
         margin: EdgeInsets.only(bottom: 25.r),
         child: Row(
           children: [
@@ -473,24 +473,24 @@ class _RidersStepperScreenState extends StateMVC<RidersStepperScreen> with Valid
                               setState((){
                                 con.path = result.files.single.path;
                                 con.fileName = result.files.single.name;
-                                 pathLink = con.path;
-                                 fileNam =con.fileName;
-                                con.model.vehicleRegPath = con.path;
-                                con.model.ownerCertPath = con.path;
-                                con.model.insurPolPath = con.path;
-                                con.model.driverLicPath = con.path;
-                                con.isLoading= con.changeIconBool(vehicleRegPath: con.model.vehicleRegPath);
-                                con.isLoading = con.changeIconBool1(ownershipCerti: con.model.ownerCertPath);
-                                con.isLoading = con.changeIconBool2(riderLicense: con.model.driverLicPath);
-                                con.isLoading = con.changeIconBool3(insurancePol: con.model.insurPolPath);
+                                 // pathLink = con.path;
+                                 // fileNam =con.fileName;
+                                // Set the current ID to the ID of this widget
+                                con.id = idPassed ?? 0;
+
+                                // Set the current path to this guy
+                                con.setPath(con.path);
+
+                                // Change the loading variable based on who is currently selected
+                                con.isLoading = con.changeIconBool(path: con.getPath());
                                 print(con.isLoading);
 
                               });
-                              print("vehicle${con.model.vehicleRegPath}");
-                              print("ownercert${con.model.ownerCertPath}");
-                              print("insurpolpath${con.model.insurPolPath}");
-                              print("driverlicpath${con.model.driverLicPath}");
-                              print("how are you ${con.changeIconBool(vehicleRegPath: pathLink)}");
+                              // print("vehicle${con.model.vehicleRegPath}");
+                              // print("ownercert${con.model.ownerCertPath}");
+                              // print("insurpolpath${con.model.insurPolPath}");
+                              // print("driverlicpath${con.model.driverLicPath}");
+                              // print("how are you ${con.changeIconBool(vehicleRegPath: pathLink)}");
                               con.uploadDoc(pathLink!, fileNam, iconLoading).then((value) => print('done'));
 
                             },
@@ -502,7 +502,8 @@ class _RidersStepperScreenState extends StateMVC<RidersStepperScreen> with Valid
                             ),
                           ),
                             SizedBox(width: 50.w,),
-                          con.isLoading ? SpinKitDoubleBounce(
+
+                          con.isLoading && (con.id == idPassed) ? SpinKitDoubleBounce(
                             color: AppColor.primary50,
                             size: 40.0.h,
                           ): SizedBox.shrink(),
